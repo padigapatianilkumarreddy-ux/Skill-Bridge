@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Sign in or create a student account on SkillBridge to connect with peer tutors and share your skills." />
+  <title>Sign In / Create Account — SkillBridge</title>
+  
+  <!-- Typography & Fonts matching SkillBridge -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <!-- Dedicated Authentication Stylesheet -->
+  <link rel="stylesheet" href="auth.css" />
+</head>
+<body>
+
+  <!-- Top Navigation Header -->
+  <header class="auth-header">
+    <a class="brand" href="index.html" aria-label="SkillBridge home">
+      <span class="brand-mark">S</span>
+      <span>skill<span class="brand-accent">bridge</span></span>
+    </a>
+    <a class="back-link" href="index.html" aria-label="Return to marketplace">
+      <span>←</span> Return to Marketplace
+    </a>
+  </header>
+
+  <!-- Main Split-Layout Container -->
+  <main class="auth-page">
+    
+    <!-- Left Showcase Column -->
+    <section class="auth-showcase">
+      <div class="eyebrow">
+        <span class="eyebrow-dot"></span> CAMPUS PEER NETWORK
+      </div>
+      
+      <h1>One account to <span class="highlight">learn anything</span> & share what you know.</h1>
+      
+      <p class="showcase-desc">
+        Connect with peer tutors across 48 subjects, schedule 1-on-1 learning sessions, or list your own skills to help fellow students thrive.
+      </p>
+
+      <div class="perks-list">
+        <div class="perk-item">
+          <div class="perk-icon green">✦</div>
+          <div>
+            <strong>Verified Peer Learning</strong>
+            <p>Study with classmates from your own campus who understand your coursework and curriculum.</p>
+          </div>
+        </div>
+
+        <div class="perk-item">
+          <div class="perk-icon peach">↗</div>
+          <div>
+            <strong>Zero-Cost & Skill Exchange</strong>
+            <p>No pricey tutoring fees. Trade coding for calculus or design for languages in a friendly space.</p>
+          </div>
+        </div>
+
+        <div class="perk-item">
+          <div class="perk-icon lilac">⌘</div>
+          <div>
+            <strong>Interactive Student Dashboard</strong>
+            <p>Track incoming requests, manage preferred session dates, and maintain your campus tutor profile.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Testimonial Quote -->
+      <div class="showcase-quote-card">
+        <div class="quote-stars">★★★★★</div>
+        <p class="quote-text">
+          "SkillBridge made it so easy to find a senior to help me with Data Structures right before midterms. Now I tutor first-years in Web Basics!"
+        </p>
+        <div class="quote-author">
+          <div class="quote-avatar">MP</div>
+          <div class="quote-author-info">
+            <strong>Maya Patel</strong>
+            <small>3rd year CSE · Peer Tutor</small>
+          </div>
+        </div>
+      </div>
+
+      <!-- Quick 1-Click Demo Accounts -->
+      <div class="demo-accounts-box">
+        <div class="demo-title">
+          <span>⚡</span> Quick Demo Logins (1-Click for Testing)
+        </div>
+        <div class="demo-buttons">
+          <button type="button" class="demo-btn" data-demo-email="maya@campus.edu" data-demo-pass="password123">
+            <span>💻</span> Maya Patel (Tutor)
+          </button>
+          <button type="button" class="demo-btn" data-demo-email="arjun@campus.edu" data-demo-pass="password123">
+            <span>🎨</span> Arjun Mehta (Design)
+          </button>
+          <button type="button" class="demo-btn" data-demo-email="student@campus.edu" data-demo-pass="password123">
+            <span>📐</span> Alex Chen (Learner)
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Right Authentication Card -->
+    <section class="auth-card" aria-label="Sign in or register">
+
+      <!-- Active Session Notice (Shown if already signed in) -->
+      <div class="alert-box success hidden" id="alreadyLoggedInBanner" style="margin-bottom: 20px;">
+        <span>✦</span>
+        <span>You are currently signed in as <strong id="bannerUserName">Student</strong>. <a href="index.html#dashboard" style="text-decoration: underline; font-weight: 700;">Go to Dashboard →</a></span>
+      </div>
+
+      <!-- Segmented Tab Switcher -->
+      <div class="auth-tabs" role="tablist">
+        <button class="tab-btn active" id="tabSignIn" role="tab" aria-selected="true" aria-controls="formSignIn">
+          Sign In
+        </button>
+        <button class="tab-btn" id="tabSignUp" role="tab" aria-selected="false" aria-controls="formSignUp">
+          Create Account
+        </button>
+      </div>
+
+      <!-- ===================================================================
+           TAB 1: SIGN IN FORM
+           =================================================================== -->
+      <div id="formSignIn">
+        <div class="form-header">
+          <h2>Welcome back</h2>
+          <p>Enter your student email and password to access your dashboard.</p>
+        </div>
+
+        <div class="alert-box danger hidden" id="signinAlert" role="alert"></div>
+
+        <form class="auth-form" novalidate>
+          <div class="form-group">
+            <label for="signinEmail">Student Email or ID</label>
+            <div class="input-wrap">
+              <input 
+                id="signinEmail" 
+                type="email" 
+                required 
+                autocomplete="email"
+                placeholder="e.g. maya@campus.edu" 
+              />
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="signinPassword">Password</label>
+            <div class="input-wrap">
+              <input 
+                id="signinPassword" 
+                type="password" 
+                required 
+                autocomplete="current-password"
+                placeholder="Enter your password" 
+              />
+              <button 
+                type="button" 
+                class="input-icon-btn" 
+                data-toggle-password="signinPassword" 
+                aria-label="Toggle password visibility"
+                title="Show password"
+              >👁</button>
+            </div>
+          </div>
+
+          <div class="form-helpers">
+            <label class="custom-checkbox">
+              <input type="checkbox" id="rememberMe" checked />
+              <span>Remember this browser</span>
+            </label>
+            <button type="button" class="link-button" id="forgotPasswordBtn">
+              Forgot password?
+            </button>
+          </div>
+
+          <button type="submit" class="btn-submit">
+            Sign In to SkillBridge <span>→</span>
+          </button>
+        </form>
+
+        <p class="auth-switch-text">
+          New to SkillBridge? 
+          <button type="button" id="switchToSignUp">Create an account</button>
+        </p>
+      </div>
+
+      <!-- ===================================================================
+           TAB 2: CREATE ACCOUNT FORM
+           =================================================================== -->
+      <div id="formSignUp" class="hidden">
+        <div class="form-header">
+          <h2>Create student account</h2>
+          <p>Join campus peers to learn together, trade skills, and grow.</p>
+        </div>
+
+        <div class="alert-box danger hidden" id="signupAlert" role="alert"></div>
+
+        <form class="auth-form" novalidate>
+          <div class="form-grid-2">
+            <div class="form-group">
+              <label for="signupName">Full Name</label>
+              <div class="input-wrap">
+                <input 
+                  id="signupName" 
+                  type="text" 
+                  required 
+                  maxlength="50"
+                  autocomplete="name"
+                  placeholder="e.g. Anil Reddy" 
+                />
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="signupEmail">Student Email</label>
+              <div class="input-wrap">
+                <input 
+                  id="signupEmail" 
+                  type="email" 
+                  required 
+                  maxlength="60"
+                  autocomplete="email"
+                  placeholder="e.g. anil@campus.edu" 
+                />
+              </div>
+            </div>
+          </div>
+
+          <div class="form-grid-2">
+            <div class="form-group">
+              <label for="signupYear">Academic Year & Major</label>
+              <div class="input-wrap">
+                <select id="signupYear" required>
+                  <option value="1st year · Engineering">1st year · Engineering</option>
+                  <option value="2nd year · CSE" selected>2nd year · CSE</option>
+                  <option value="3rd year · CSE">3rd year · CSE</option>
+                  <option value="2nd year · Design">2nd year · Design</option>
+                  <option value="3rd year · Mathematics">3rd year · Mathematics</option>
+                  <option value="4th year · Electronics">4th year · Electronics</option>
+                  <option value="3rd year · Business">3rd year · Business</option>
+                  <option value="Student">Other / General</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="signupSkill">
+                Primary Skill <span class="optional">(Teach / Learn)</span>
+              </label>
+              <div class="input-wrap">
+                <input 
+                  id="signupSkill" 
+                  type="text" 
+                  maxlength="60"
+                  placeholder="e.g. Python, UI Design, Math" 
+                />
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="signupPassword">Create Password</label>
+            <div class="input-wrap">
+              <input 
+                id="signupPassword" 
+                type="password" 
+                required 
+                autocomplete="new-password"
+                placeholder="At least 6 characters" 
+              />
+              <button 
+                type="button" 
+                class="input-icon-btn" 
+                data-toggle-password="signupPassword" 
+                aria-label="Toggle password visibility"
+                title="Show password"
+              >👁</button>
+            </div>
+            <!-- Strength Meter -->
+            <div class="strength-meter">
+              <div class="strength-bar-track">
+                <div class="strength-bar" id="strengthBar"></div>
+              </div>
+              <div class="strength-label">
+                <span id="strengthLabel">Enter a password</span>
+                <span>Min 6 characters</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="signupConfirmPassword">Confirm Password</label>
+            <div class="input-wrap">
+              <input 
+                id="signupConfirmPassword" 
+                type="password" 
+                required 
+                autocomplete="new-password"
+                placeholder="Re-enter your password" 
+              />
+              <button 
+                type="button" 
+                class="input-icon-btn" 
+                data-toggle-password="signupConfirmPassword" 
+                aria-label="Toggle password visibility"
+                title="Show password"
+              >👁</button>
+            </div>
+          </div>
+
+          <!-- Tutor checkbox & Community guidelines -->
+          <div style="display: grid; gap: 8px; margin: 4px 0;">
+            <label class="custom-checkbox">
+              <input type="checkbox" id="listAsTutor" checked />
+              <span>List me as a peer tutor in the marketplace</span>
+            </label>
+            <label class="custom-checkbox">
+              <input type="checkbox" id="termsAgree" checked required />
+              <span>I agree to follow respectful campus peer learning guidelines</span>
+            </label>
+          </div>
+
+          <button type="submit" class="btn-submit">
+            Create Account & Join <span>→</span>
+          </button>
+        </form>
+
+        <p class="auth-switch-text">
+          Already have an account? 
+          <button type="button" id="switchToSignIn">Sign in</button>
+        </p>
+      </div>
+
+    </section>
+  </main>
+
+  <!-- Interactive Toast Notification -->
+  <div class="toast" id="authToast" role="status" aria-live="polite">
+    <div class="toast-dot"></div>
+    <span id="toastText">Welcome to SkillBridge!</span>
+  </div>
+
+  <!-- Forgot Password / Account Help Dialog -->
+  <div class="modal-backdrop hidden" id="forgotModal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <div class="modal-dialog">
+      <button class="modal-close-btn" id="forgotModalClose" aria-label="Close dialog">×</button>
+      <h3 id="modalTitle">Account & Password Recovery</h3>
+      <p>
+        SkillBridge is running in local demo mode. Enter your registered student email below or use one of the preset demo accounts.
+      </p>
+
+      <div class="alert-box hidden" id="resetFeedback" style="margin-bottom: 14px;"></div>
+
+      <div class="form-group" style="margin-bottom: 14px;">
+        <label for="resetEmailInput">Your student email</label>
+        <div class="input-wrap">
+          <input id="resetEmailInput" type="email" placeholder="e.g. maya@campus.edu" />
+        </div>
+      </div>
+
+      <button type="button" class="btn-submit" id="sendResetBtn" style="width: 100%;">
+        Simulate Password Reset Link <span>→</span>
+      </button>
+
+      <div style="margin-top: 18px; padding-top: 14px; border-top: 1px solid var(--line); font-size: 11px; color: var(--muted); line-height: 1.6;">
+        💡 <strong>Quick Demo Tip:</strong> Default accounts are <code>maya@campus.edu</code>, <code>arjun@campus.edu</code>, and <code>student@campus.edu</code> with password <code>password123</code>.
+      </div>
+    </div>
+  </div>
+
+  <!-- Authentication Logic Script -->
+  <script src="auth.js"></script>
+</body>
+</html>
